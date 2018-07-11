@@ -8,6 +8,9 @@ import shutil
 import time
 import logging
 import platform
+
+from selenium.webdriver.common import desired_capabilities
+
 from pages.base_page_object import BasePage
 from pages.signup_claim_account import *
 from pages.create_user_api import *
@@ -87,10 +90,14 @@ def before_all(context):
 def before_feature(context,feature):
     print("User data:", context.config.userdata)
     desired_cap = {
-        'platform': "windows 10",
-        'browserName': "chrome",
-        'version': "67"
+        'platform': "SELENIUM_PLATFORM",
+        'browserName': "SELENIUM_BROWSER",
+        'version': "SELENIUM_VERSION"
     }
+
+
+
+
     context.browser = webdriver.Remote(
         command_executor='http://sourabh94:e4be7c8c-f774-4534-b8e6-0be51798cc77@ondemand.saucelabs.com:80/wd/hub',
         desired_capabilities=desired_cap)
