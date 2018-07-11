@@ -99,7 +99,7 @@ def before_feature(context,feature):
 
 
     context.browser = webdriver.Remote(
-        command_executor='http://sourabh94:e4be7c8c-f774-4534-b8e6-0be51798cc77@ondemand.saucelabs.com:80/wd/hub',
+        command_executor='http://SAUCE_USERNAME@SAUCE_ACCESS_KEY:80/wd/hub',
         desired_capabilities=desired_cap)
     # behave -D BROWSER=chrome
     # if 'BROWSER' in context.config.userdata.keys():
