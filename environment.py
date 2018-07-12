@@ -8,9 +8,6 @@ import shutil
 import time
 import logging
 import platform
-
-from selenium.webdriver.common import desired_capabilities
-
 from pages.base_page_object import BasePage
 from pages.signup_claim_account import *
 from pages.create_user_api import *
@@ -89,18 +86,21 @@ def before_all(context):
 
 def before_feature(context,feature):
     print("User data:", context.config.userdata)
-    desired_cap = {
-        'platform': "SELENIUM_PLATFORM",
-        'browserName': "SELENIUM_BROWSER",
-        'version': "SELENIUM_VERSION"
-    }
+    # desired_cap = {
+    #     'platform': "windows 10",
+    #     'browserName': "chrome",
+    #     'version': "67"
+    # }
 
-
-
-
+    desired_caps = {}
+    desired_caps['platform'] = os.getenv('platform','SELENIUM_PLATFORM')
+    desired_caps['browserName'] = os.getenv('browserName','SELENIUM_BROWSER')
+    desired_caps['version'] = os.getenv('version','SELENIUM_VERSION')
     context.browser = webdriver.Remote(
-        command_executor='http://SAUCE_USERNAME@SAUCE_ACCESS_KEY:80/wd/hub',
-        desired_capabilities=desired_cap)
+        command_executor='http://sourabh94:e4be7c8c-f774-4534-b8e6-0be51798cc77@ondemand.saucelabs.com:80/wd/hub',
+        desired_capabilities=desired_caps)
+
+
     # behave -D BROWSER=chrome
     # if 'BROWSER' in context.config.userdata.keys():
     #     if context.config.userdata['BROWSER'] is None:
