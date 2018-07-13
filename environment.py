@@ -12,6 +12,7 @@ from pages.base_page_object import BasePage
 from pages.signup_claim_account import *
 from pages.create_user_api import *
 from pages.profile_dropdown import *
+from sauceclient import SauceClient
 
 env = "stage"
 
@@ -96,7 +97,6 @@ def before_feature(context,feature):
     desired_caps['platform'] = os.getenv('SELENIUM_PLATFORM')
     desired_caps['browserName'] = os.getenv('SELENIUM_BROWSER')
     desired_caps['version'] = os.getenv('SELENIUM_VERSION')
-    desired_caps['jobNmae']=os.getenv('JOB_NAME')
     desired_caps['buildinfo']=(os.getenv('JOB_NAME')+" "+os.getenv('BUILD_NUMBER'))
 
 
@@ -173,6 +173,12 @@ def after_feature(context, scenario):
 
     def after_scenario(context, scenario):
             print("\nAfter Feature")
+
+    if hasattr(context, 'driver'):
+        context.driver.quit()
+        sauce_client = SauceClient("sourabh94", "e4be7c8c-f774-4534-b8e6-0be51798cc77")
+        test_status = scenario.status == 'passed'
+        sauce_client.jobs.update_job(context.driver.session_id, passed=test_status)
 
 def after_all(context):
     print("User data:", context.config.userdata)
