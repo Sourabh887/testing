@@ -97,7 +97,7 @@ def before_feature(context,feature):
     desired_caps['browserName'] = os.getenv('SELENIUM_BROWSER')
     desired_caps['version'] = os.getenv('SELENIUM_VERSION')
     desired_caps['jobNmae']=os.getenv('JOB_NAME')
-    desired_caps['buildNumber']=os.getenv('BUILD_NUMBER')
+    desired_caps['buildinfo']=(os.getenv('JOB_NAME')+" "+os.getenv('BUILD_NUMBER'))
 
 
     context.browser = webdriver.Remote(
