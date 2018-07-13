@@ -96,6 +96,10 @@ def before_feature(context,feature):
     desired_caps['platform'] = os.getenv('SELENIUM_PLATFORM')
     desired_caps['browserName'] = os.getenv('SELENIUM_BROWSER')
     desired_caps['version'] = os.getenv('SELENIUM_VERSION')
+    desired_caps['jobNmae']=os.getenv('JOB_NAME')
+    desired_caps['buildNumber']=os.getenv('BUILD_NUMBER')
+
+
     context.browser = webdriver.Remote(
         command_executor='http://sourabh94:e4be7c8c-f774-4534-b8e6-0be51798cc77@ondemand.saucelabs.com:80/wd/hub',
         desired_capabilities=desired_caps)
