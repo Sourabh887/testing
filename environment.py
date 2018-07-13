@@ -163,6 +163,14 @@ def after_feature(context, scenario):
     #     context.browser.save_screenshot(scenario.name + "_failed.png")
     # context.browser.quit()
 
+    print("Link to your job: https://saucelabs.com/jobs/%s" %
+          context.browser.session_id)
+
+    if hasattr(context,'browser'):
+        sauce_client = SauceClient("sourabh94", "e4be7c8c-f774-4534-b8e6-0be51798cc77")
+        test_status = scenario.status == 'passed'
+        sauce_client.jobs.update_job(context.browser.session_id, passed=test_status)
+
     print("scenario status" + scenario.status)
     if scenario.status == "failed":
         if not os.path.exists("failed_scenarios_screenshots"):
@@ -174,10 +182,7 @@ def after_feature(context, scenario):
     def after_scenario(context, scenario):
             print("\nAfter Feature")
 
-    if hasattr(context,'browser'):
-        sauce_client = SauceClient("sourabh94", "e4be7c8c-f774-4534-b8e6-0be51798cc77")
-        test_status = scenario.status == 'passed'
-        sauce_client.jobs.update_job(context.browser.session_id, passed=test_status)
+
 
 def after_all(context):
     print("User data:", context.config.userdata)
