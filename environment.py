@@ -2,6 +2,7 @@ from selenium import webdriver
 # If you don't see colors (RED and GREEN) on command line, add the below lines
 # from colorama import init
 # init()
+
 import os
 # import zipfile
 import shutil
